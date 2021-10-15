@@ -2,14 +2,13 @@ import java.util.Scanner;
 import java.util.HashMap;
 
 public class Main {
-    //public static int resultInNum;
-
-    //Сканер
-    public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         openIntro();
     }
+
+    //Сканер
+    public static Scanner sc = new Scanner(System.in);
 
     //Ожидание ввода Enter
     private static void waitEnter(){
@@ -25,9 +24,9 @@ public class Main {
     //Главное меню
     private static void openMainMenu() {
         while (true) {
-            System.out.print("1) Сбежать, как нормальный человек\n2) Продолжить, вы готовы убивать неввинных людей и детей\nВаш выбор:");
-            int answer_chose = Integer.parseInt(sc.nextLine().replaceAll("\\s", ""));
-            //System.out.print(answer_chose);
+            ////Ошибка с не целым числом
+            System.out.print("1) Сбежать, как нормальный человек\n2) Продолжить, вы готовы убивать неввинных людей и детей\nВаш выбор: ");
+                int answer_chose = Integer.parseInt(sc.nextLine().replaceAll("\\s", ""));
             switch (answer_chose) {
                 case 1:
                     exitProgramm();
@@ -45,6 +44,7 @@ public class Main {
 
     //Создание массивов ответов, вопросов и вывод ответа
     private static void openTest(){
+        //Стоит вынести
         HashMap<Integer, String> phraseIfResult = new HashMap<>();
         phraseIfResult.put(10, "Ёмаё, да ты морально разложившийся человек!\nТы определенно выиграешь!");
         phraseIfResult.put(9, "Долги так сильно на тебя давят, что ты готов убивать невинных?\nПарень до тебя был получше.");
@@ -72,21 +72,20 @@ public class Main {
             boolean correctInput = false;
             do {
                 System.out.println(ques_num + 1 + ") " + questions[ques_num]);
-                int count = 1;
-                for (String ans : answers[ques_num]) {
-                    System.out.println("\t" + count++ + ") " + ans);
+                for (int i = 0; i < answers[ques_num].length; i++) {
+                    System.out.println("\t" + (i+1) + ") " + answers[ques_num][i]);
                 }
                 System.out.print("Ваш выбор: ");
-                String inputAnswerUser = sc.nextLine();
-                if (inputAnswerUser.equals("1")) {
-                    correctInput = true;
-                } else if (inputAnswerUser.equals("2")) {
+                int inputAnswerUser = Integer.parseInt(sc.nextLine().replaceAll("\\s", ""));
+                if (inputAnswerUser == 1) {
+                } else if (inputAnswerUser == 2) {
                     resultInNum++;
-                    correctInput = true;
                 } else {
                     System.out.println("\nТакого пункта нету, прекрати ломать программу!");
                     waitEnter();
+                    continue;
                 }
+                correctInput = true;
 
             } while (!correctInput);
             System.out.println();
@@ -94,15 +93,6 @@ public class Main {
         return resultInNum;
 
     }
-
-
-
-
-
-
-
-
-
 
     //Выход
     private static void exitProgramm() {
@@ -139,6 +129,4 @@ public class Main {
                 {"Замру от ужаса", "Сфотографирую ее в Instagram"}
         };
     }
-
-
 }
